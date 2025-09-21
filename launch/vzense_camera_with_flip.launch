@@ -1,33 +1,30 @@
 <launch>
   <!-- Start the original Vzense camera driver -->
   <include file="$(find vzense_camera)/launch/vzense_camera.launch" />
-
-  <!-- Nodelet manager -->
-  <node pkg="nodelet" type="nodelet" name="image_proc_manager" args="manager" />
   
   <!-- Flip RGB -->
-  <node pkg="nodelet" type="nodelet" name="rgb_flip" args="load image_proc/image_flip image_proc_manager">
+  <node pkg="nodelet" type="nodelet" name="depth_flip" args="load image_proc/image_flip vzense_manager">
     <param name="flip_vertical" value="true"/>
     <remap from="image" to="/Vzense/color/image_raw"/>
     <remap from="image_flipped" to="/Vzense/color/image_raw_flipped"/>
   </node>
   
   <!-- Flip Depth -->
-  <node pkg="nodelet" type="nodelet" name="depth_flip" args="load image_proc/image_flip image_proc_manager">
+  <node pkg="nodelet" type="nodelet" name="depth_flip" args="load image_proc/image_flip vzense_manager">
     <param name="flip_vertical" value="true"/>
     <remap from="image" to="/Vzense/depth/image_raw"/>
     <remap from="image_flipped" to="/Vzense/depth/image_raw_flipped"/>
   </node>
   
   <!-- Flip Aligned Depth -->
-  <node pkg="nodelet" type="nodelet" name="aligned_depth_flip" args="load image_proc/image_flip image_proc_manager">
+  <node pkg="nodelet" type="nodelet" name="aligned_depth_flip" args="load image_proc/image_flip vzense_manager">
     <param name="flip_vertical" value="true"/>
     <remap from="image" to="/Vzense/aligned_depth_to_color/image_raw"/>
     <remap from="image_flipped" to="/Vzense/aligned_depth_to_color/image_raw_flipped"/>
   </node>
   
   <!-- Flip IR -->
-  <node pkg="nodelet" type="nodelet" name="ir_flip" args="load image_proc/image_flip image_proc_manager">
+  <node pkg="nodelet" type="nodelet" name="ir_flip" args="load image_proc/image_flip vzense_manager">
     <param name="flip_vertical" value="true"/>
     <remap from="image" to="/Vzense/ir/image_raw"/>
     <remap from="image_flipped" to="/Vzense/ir/image_raw_flipped"/>
