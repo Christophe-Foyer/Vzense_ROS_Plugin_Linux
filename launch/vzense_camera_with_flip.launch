@@ -3,7 +3,7 @@
   <include file="$(find vzense_camera)/launch/vzense_camera.launch" />
   
   <!-- Flip RGB -->
-  <node pkg="nodelet" type="nodelet" name="depth_flip" args="load image_proc/image_flip vzense_manager">
+  <node pkg="nodelet" type="nodelet" name="rgb_flip" args="load image_proc/image_flip vzense_manager">
     <param name="flip_vertical" value="true"/>
     <remap from="image" to="/Vzense/color/image_raw"/>
     <remap from="image_flipped" to="/Vzense/color/image_raw_flipped"/>
