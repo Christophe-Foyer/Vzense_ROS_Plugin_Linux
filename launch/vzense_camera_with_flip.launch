@@ -1,0 +1,35 @@
+<launch>
+  <!-- Start the original Vzense camera driver -->
+  <include file="$(find vzense_camera)/launch/vzense_camera.launch" />
+
+  <!-- Flip RGB -->
+  <node pkg="image_proc" type="image_flip" name="rgb_flip" output="screen">
+    <param name="flip_horizontal" value="false"/>
+    <param name="flip_vertical" value="true"/>
+    <remap from="image" to="/Vzense/color/image_raw"/>
+    <remap from="image_flipped" to="/Vzense/color/image_raw_flipped"/>
+  </node>
+
+  <!-- Flip Depth -->
+  <node pkg="image_proc" type="image_flip" name="depth_flip" output="screen">
+    <param name="flip_horizontal" value="false"/>
+    <param name="flip_vertical" value="true"/>
+    <remap from="image" to="/Vzense/depth/image_raw"/>
+    <remap from="image_flipped" to="/Vzense/depth/image_raw_flipped"/>
+  </node>
+  <node pkg="image_proc" type="image_flip" name="aligned_depth_flip" output="screen">
+    <param name="flip_horizontal" value="false"/>
+    <param name="flip_vertical" value="true"/>
+    <remap from="image" to="/Vzense/aligned_depth_to_color/image_raw"/>
+    <remap from="image_flipped" to="/Vzense/aligned_depth_to_color/image_raw_flipped"/>
+  </node>
+
+  <!-- Flip IR -->
+  <node pkg="image_proc" type="image_flip" name="ir_flip" output="screen">
+    <param name="flip_horizontal" value="false"/>
+    <param name="flip_vertical" value="true"/>
+    <remap from="image" to="/Vzense/ir/image_raw"/>
+    <remap from="image_flipped" to="/Vzense/ir/image_raw_flipped"/>
+  </node>
+
+</launch>
